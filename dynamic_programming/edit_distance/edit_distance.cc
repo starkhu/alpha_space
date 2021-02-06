@@ -10,7 +10,7 @@ int MinOfThree (int n1, int n2, int n3) {
 }
 
 
-int EditDistance(const string src_str, const string dst_str){
+int EditDistance(const string src_str, const string dst_str) {
   int src_len = src_str.size();
   int dst_len = dst_str.size();
   
@@ -32,18 +32,18 @@ int EditDistanceFromBottom(const string src_str, const string dst_str) {
   if (src_len == 0) return dst_len;
   if (dst_len == 0) return src_len;
   int edit_distance[src_len+1][dst_len+1];
-  for (int i=0; i<src_len+1; ++i) {
+  for (int i = 0; i < dst_len + 1; ++i) {
     edit_distance[0][i] = i;
   }
-  for (int i=0; i<dst_len+1; ++i) {
+  for (int i = 0; i < src_len + 1; ++i) {
     edit_distance[i][0] = i;
   }
-  for (int row = 1; row<dst_len+1; ++row) {
-    for (int col = 1; col < src_len+1; ++col) {
-      int cost = src_str[row] == dst_str[col] ? 0 : 1;
-      edit_distance[row][col] = MinOfThree(edit_distance[row-1][col]+1,
-                                           edit_distance[row][col-1]+1,
-					   edit_distance[row-1][col-1]+ cost);
+  for (int row = 1; row < src_len + 1; ++row) {
+    for (int col = 1; col < dst_len+1; ++col) {
+      int cost = src_str[row - 1] == dst_str[col - 1] ? 0 : 1;
+      edit_distance[row][col] = MinOfThree(edit_distance[row-1][col] + 1,
+                                           edit_distance[row][col-1] + 1,
+					   edit_distance[row-1][col-1] + cost);
     }
   }
   return edit_distance[src_len][dst_len];
